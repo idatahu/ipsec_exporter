@@ -96,7 +96,7 @@ var (
 
 var (
 	lsStateRE     = regexp.MustCompile(lsState)
-	lsParentIDRE  = regexp.MustCompile(`; isakmp#(?P<parentid>\d+)`)
+	lsParentIDRE  = regexp.MustCompile(`; (isakmp|ISAKMP SA )#(?P<parentid>\d+)`)
 	lsStateNameRE = regexp.MustCompile(`(STATE_\w+)`)
 	lsSPIRE       = regexp.MustCompile(`([a-z]+)[?:.][a-f0-9]+@` + lsIPAddrPart)
 	lsTrafficRE   = regexp.MustCompile(`(AHin|AHout|ESPin|ESPout|IPCOMPin|IPCOMPout)=(\d+)(B|KB|MB)`)
