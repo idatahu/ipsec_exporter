@@ -1,0 +1,395 @@
+000 using kernel interface: netkey
+000 interface lo/lo [::1]:500
+000 interface lo/lo 127.0.0.1:4500
+000 interface lo/lo 127.0.0.1:500
+000 interface vlan1000/vlan1000 10.99.88.54:4500
+000 interface vlan1000/vlan1000 10.99.88.54:500
+000 interface vlan1000:1/vlan1000:1 10.99.88.55:4500
+000 interface vlan1000:1/vlan1000:1 10.99.88.55:500
+000 interface vlan1000:2/vlan1000:2 10.99.88.56:4500
+000 interface vlan1000:2/vlan1000:2 10.99.88.56:500
+000  
+000  
+000 fips mode=disabled;
+000 SElinux=disabled
+000 seccomp=unsupported
+000  
+000 config setup options:
+000  
+000 configdir=/etc, configfile=/etc/ipsec.conf, secrets=/etc/ipsec.secrets, ipsecdir=/etc/ipsec.d
+000 nssdir=/var/lib/ipsec/nss, dumpdir=/run/pluto, statsbin=unset
+000 dnssec-rootkey-file=/usr/share/dns/root.key, dnssec-trusted=<unset>
+000 sbindir=/usr/sbin, libexecdir=/usr/libexec/ipsec
+000 pluto_version=3.32, pluto_vendorid=OE-Libreswan-3.32, audit-log=yes
+000 nhelpers=-1, uniqueids=yes, dnssec-enable=yes, perpeerlog=no, logappend=yes, logip=yes, shuntlifetime=900s, xfrmlifetime=30s
+000 ddos-cookies-threshold=50000, ddos-max-halfopen=25000, ddos-mode=auto
+000 ikeport=500, ikebuf=0, msg_errqueue=yes, strictcrlpolicy=no, crlcheckinterval=0, listen=<any>, nflog-all=0
+000 ocsp-enable=no, ocsp-strict=no, ocsp-timeout=2, ocsp-uri=<unset>
+000 ocsp-trust-name=<unset>
+000 ocsp-cache-size=1000, ocsp-cache-min-age=3600, ocsp-cache-max-age=86400, ocsp-method=get
+000 global-redirect=no, global-redirect-to=<unset>
+000 secctx-attr-type=32001
+000 debug:
+000  
+000 nat-traversal=yes, keep-alive=20, nat-ikeport=4500
+000 virtual-private (%priv):
+000 - allowed subnets: 192.168.0.0/16, 172.16.0.0/12, <unspecified>/0
+000  
+000 Kernel algorithms supported:
+000  
+000 algorithm ESP encrypt: name=3DES_CBC, keysizemin=192, keysizemax=192
+000 algorithm ESP encrypt: name=AES_CBC, keysizemin=128, keysizemax=256
+000 algorithm ESP encrypt: name=AES_CCM_12, keysizemin=128, keysizemax=256
+000 algorithm ESP encrypt: name=AES_CCM_16, keysizemin=128, keysizemax=256
+000 algorithm ESP encrypt: name=AES_CCM_8, keysizemin=128, keysizemax=256
+000 algorithm ESP encrypt: name=AES_CTR, keysizemin=128, keysizemax=256
+000 algorithm ESP encrypt: name=AES_GCM_12, keysizemin=128, keysizemax=256
+000 algorithm ESP encrypt: name=AES_GCM_16, keysizemin=128, keysizemax=256
+000 algorithm ESP encrypt: name=AES_GCM_8, keysizemin=128, keysizemax=256
+000 algorithm ESP encrypt: name=CAMELLIA_CBC, keysizemin=128, keysizemax=256
+000 algorithm ESP encrypt: name=CHACHA20_POLY1305, keysizemin=256, keysizemax=256
+000 algorithm ESP encrypt: name=NULL, keysizemin=0, keysizemax=0
+000 algorithm ESP encrypt: name=NULL_AUTH_AES_GMAC, keysizemin=128, keysizemax=256
+000 algorithm ESP encrypt: name=SERPENT_CBC, keysizemin=128, keysizemax=256
+000 algorithm ESP encrypt: name=TWOFISH_CBC, keysizemin=128, keysizemax=256
+000 algorithm AH/ESP auth: name=AES_CMAC_96, key-length=128
+000 algorithm AH/ESP auth: name=AES_XCBC_96, key-length=128
+000 algorithm AH/ESP auth: name=HMAC_MD5_96, key-length=128
+000 algorithm AH/ESP auth: name=HMAC_SHA1_96, key-length=160
+000 algorithm AH/ESP auth: name=HMAC_SHA2_256_128, key-length=256
+000 algorithm AH/ESP auth: name=HMAC_SHA2_256_TRUNCBUG, key-length=256
+000 algorithm AH/ESP auth: name=HMAC_SHA2_384_192, key-length=384
+000 algorithm AH/ESP auth: name=HMAC_SHA2_512_256, key-length=512
+000 algorithm AH/ESP auth: name=NONE, key-length=0
+000  
+000 IKE algorithms supported:
+000  
+000 algorithm IKE encrypt: v1id=5, v1name=OAKLEY_3DES_CBC, v2id=3, v2name=3DES, blocksize=8, keydeflen=192
+000 algorithm IKE encrypt: v1id=8, v1name=OAKLEY_CAMELLIA_CBC, v2id=23, v2name=CAMELLIA_CBC, blocksize=16, keydeflen=128
+000 algorithm IKE encrypt: v1id=-1, v1name=n/a, v2id=20, v2name=AES_GCM_C, blocksize=16, keydeflen=128
+000 algorithm IKE encrypt: v1id=-1, v1name=n/a, v2id=19, v2name=AES_GCM_B, blocksize=16, keydeflen=128
+000 algorithm IKE encrypt: v1id=-1, v1name=n/a, v2id=18, v2name=AES_GCM_A, blocksize=16, keydeflen=128
+000 algorithm IKE encrypt: v1id=13, v1name=OAKLEY_AES_CTR, v2id=13, v2name=AES_CTR, blocksize=16, keydeflen=128
+000 algorithm IKE encrypt: v1id=7, v1name=OAKLEY_AES_CBC, v2id=12, v2name=AES_CBC, blocksize=16, keydeflen=128
+000 algorithm IKE encrypt: v1id=65004, v1name=OAKLEY_SERPENT_CBC, v2id=65004, v2name=SERPENT_CBC, blocksize=16, keydeflen=128
+000 algorithm IKE encrypt: v1id=65005, v1name=OAKLEY_TWOFISH_CBC, v2id=65005, v2name=TWOFISH_CBC, blocksize=16, keydeflen=128
+000 algorithm IKE encrypt: v1id=65289, v1name=OAKLEY_TWOFISH_CBC_SSH, v2id=65289, v2name=TWOFISH_CBC_SSH, blocksize=16, keydeflen=128
+000 algorithm IKE encrypt: v1id=-1, v1name=n/a, v2id=28, v2name=CHACHA20_POLY1305, blocksize=16, keydeflen=256
+000 algorithm IKE PRF: name=HMAC_MD5, hashlen=16
+000 algorithm IKE PRF: name=HMAC_SHA1, hashlen=20
+000 algorithm IKE PRF: name=HMAC_SHA2_256, hashlen=32
+000 algorithm IKE PRF: name=HMAC_SHA2_384, hashlen=48
+000 algorithm IKE PRF: name=HMAC_SHA2_512, hashlen=64
+000 algorithm IKE PRF: name=AES_XCBC, hashlen=16
+000 algorithm IKE DH Key Exchange: name=MODP1536, bits=1536
+000 algorithm IKE DH Key Exchange: name=MODP2048, bits=2048
+000 algorithm IKE DH Key Exchange: name=MODP3072, bits=3072
+000 algorithm IKE DH Key Exchange: name=MODP4096, bits=4096
+000 algorithm IKE DH Key Exchange: name=MODP6144, bits=6144
+000 algorithm IKE DH Key Exchange: name=MODP8192, bits=8192
+000 algorithm IKE DH Key Exchange: name=DH19, bits=512
+000 algorithm IKE DH Key Exchange: name=DH20, bits=768
+000 algorithm IKE DH Key Exchange: name=DH21, bits=1056
+000 algorithm IKE DH Key Exchange: name=DH31, bits=256
+000  
+000 stats db_ops: {curr_cnt, total_cnt, maxsz} :context={0,3529,64} trans={0,3529,3240} attrs={0,3529,2160} 
+000  
+000 Connection list:
+000  
+000 "tunnel-one": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.4<1.2.3.4>===10.12.0.0/17; erouted; eroute owner: #7028
+000 "tunnel-one":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-one":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-one":   our auth:secret, their auth:secret
+000 "tunnel-one":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-one":   policy_label:unset;
+000 "tunnel-one":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-one":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-one":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-one":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-one":   conn_prio: 24,17; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-one":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-one":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.4
+000 "tunnel-one":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-one":   newest ISAKMP SA: #7012; newest IPsec SA: #7028;
+000 "tunnel-one":   IKE algorithms: 3DES_CBC-HMAC_SHA1-MODP1536
+000 "tunnel-one":   IKEv1 algorithm newest: 3DES_CBC_192-HMAC_SHA1-MODP1536
+000 "tunnel-one":   ESP algorithms: 3DES_CBC-HMAC_SHA1_96-MODP1536
+000 "tunnel-one":   ESP algorithm newest: 3DES_CBC_192-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-one-radius": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.4<1.2.3.4>===10.254.100.0/29; erouted; eroute owner: #7024
+000 "tunnel-one-radius":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-one-radius":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-one-radius":   our auth:secret, their auth:secret
+000 "tunnel-one-radius":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-one-radius":   policy_label:unset;
+000 "tunnel-one-radius":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-one-radius":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-one-radius":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-one-radius":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-one-radius":   conn_prio: 24,29; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-one-radius":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-one-radius":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.4
+000 "tunnel-one-radius":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-one-radius":   newest ISAKMP SA: #0; newest IPsec SA: #7024;
+000 "tunnel-one-radius":   IKE algorithms: 3DES_CBC-HMAC_SHA1-MODP1536
+000 "tunnel-one-radius":   ESP algorithms: 3DES_CBC-HMAC_SHA1_96-MODP1536
+000 "tunnel-one-radius":   ESP algorithm newest: 3DES_CBC_192-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-two-1": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.5<1.2.3.5>===10.11.0.0/16; erouted; eroute owner: #7021
+000 "tunnel-two-1":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-two-1":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-two-1":   our auth:secret, their auth:secret
+000 "tunnel-two-1":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-two-1":   policy_label:unset;
+000 "tunnel-two-1":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-two-1":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-two-1":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-two-1":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-two-1":   conn_prio: 24,16; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-two-1":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-two-1":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.5
+000 "tunnel-two-1":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-two-1":   newest ISAKMP SA: #7013; newest IPsec SA: #7021;
+000 "tunnel-two-1":   IKE algorithms: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-two-1":   IKEv1 algorithm newest: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-two-1":   ESP algorithms: AES_CBC_256-HMAC_SHA1_96-MODP1536
+000 "tunnel-two-1":   ESP algorithm newest: AES_CBC_256-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-two-2": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.5<1.2.3.5>===10.0.64.0/19; erouted; eroute owner: #7023
+000 "tunnel-two-2":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-two-2":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-two-2":   our auth:secret, their auth:secret
+000 "tunnel-two-2":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-two-2":   policy_label:unset;
+000 "tunnel-two-2":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-two-2":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-two-2":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-two-2":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-two-2":   conn_prio: 24,19; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-two-2":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-two-2":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.5
+000 "tunnel-two-2":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-two-2":   newest ISAKMP SA: #0; newest IPsec SA: #7023;
+000 "tunnel-two-2":   IKE algorithms: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-two-2":   ESP algorithms: AES_CBC_256-HMAC_SHA1_96-MODP1536
+000 "tunnel-two-2":   ESP algorithm newest: AES_CBC_256-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-two-ping": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.5<1.2.3.5>===10.17.67.0/29; erouted; eroute owner: #7026
+000 "tunnel-two-ping":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-two-ping":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-two-ping":   our auth:secret, their auth:secret
+000 "tunnel-two-ping":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-two-ping":   policy_label:unset;
+000 "tunnel-two-ping":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-two-ping":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-two-ping":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-two-ping":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-two-ping":   conn_prio: 24,29; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-two-ping":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-two-ping":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.5
+000 "tunnel-two-ping":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-two-ping":   newest ISAKMP SA: #0; newest IPsec SA: #7026;
+000 "tunnel-two-ping":   IKE algorithms: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-two-ping":   ESP algorithms: AES_CBC_256-HMAC_SHA1_96-MODP1536
+000 "tunnel-two-ping":   ESP algorithm newest: AES_CBC_256-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-two-radius-1": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.5<1.2.3.5>===10.17.0.0/29; erouted; eroute owner: #7022
+000 "tunnel-two-radius-1":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-two-radius-1":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-two-radius-1":   our auth:secret, their auth:secret
+000 "tunnel-two-radius-1":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-two-radius-1":   policy_label:unset;
+000 "tunnel-two-radius-1":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-two-radius-1":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-two-radius-1":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-two-radius-1":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-two-radius-1":   conn_prio: 24,29; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-two-radius-1":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-two-radius-1":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.5
+000 "tunnel-two-radius-1":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-two-radius-1":   newest ISAKMP SA: #0; newest IPsec SA: #7022;
+000 "tunnel-two-radius-1":   IKE algorithms: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-two-radius-1":   ESP algorithms: AES_CBC_256-HMAC_SHA1_96-MODP1536
+000 "tunnel-two-radius-1":   ESP algorithm newest: AES_CBC_256-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-two-radius-2": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.5<1.2.3.5>===10.17.7.0/29; erouted; eroute owner: #7025
+000 "tunnel-two-radius-2":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-two-radius-2":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-two-radius-2":   our auth:secret, their auth:secret
+000 "tunnel-two-radius-2":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-two-radius-2":   policy_label:unset;
+000 "tunnel-two-radius-2":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-two-radius-2":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-two-radius-2":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-two-radius-2":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-two-radius-2":   conn_prio: 24,29; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-two-radius-2":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-two-radius-2":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.5
+000 "tunnel-two-radius-2":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-two-radius-2":   newest ISAKMP SA: #0; newest IPsec SA: #7025;
+000 "tunnel-two-radius-2":   IKE algorithms: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-two-radius-2":   ESP algorithms: AES_CBC_256-HMAC_SHA1_96-MODP1536
+000 "tunnel-two-radius-2":   ESP algorithm newest: AES_CBC_256-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-three": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.6<1.2.3.6>===10.200.0.0/22; erouted; eroute owner: #7018
+000 "tunnel-three":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-three":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-three":   our auth:secret, their auth:secret
+000 "tunnel-three":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-three":   policy_label:unset;
+000 "tunnel-three":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-three":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-three":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-three":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-three":   conn_prio: 24,22; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-three":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-three":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.6
+000 "tunnel-three":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-three":   newest ISAKMP SA: #7027; newest IPsec SA: #7018;
+000 "tunnel-three":   IKE algorithms: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-three":   IKEv1 algorithm newest: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-three":   ESP algorithms: AES_CBC_256-HMAC_SHA1_96-MODP1536
+000 "tunnel-three":   ESP algorithm newest: AES_CBC_256-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-three-2": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.6<1.2.3.6>===10.202.0.0/20; erouted; eroute owner: #7029
+000 "tunnel-three-2":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-three-2":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-three-2":   our auth:secret, their auth:secret
+000 "tunnel-three-2":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-three-2":   policy_label:unset;
+000 "tunnel-three-2":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-three-2":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-three-2":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-three-2":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-three-2":   conn_prio: 24,20; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-three-2":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-three-2":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.6
+000 "tunnel-three-2":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-three-2":   newest ISAKMP SA: #0; newest IPsec SA: #7029;
+000 "tunnel-three-2":   IKE algorithms: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-three-2":   ESP algorithms: AES_CBC_256-HMAC_SHA1_96-MODP1536
+000 "tunnel-three-2":   ESP algorithm newest: AES_CBC_256-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-three-3": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.6<1.2.3.6>===10.40.88.0/21; erouted; eroute owner: #7020
+000 "tunnel-three-3":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-three-3":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-three-3":   our auth:secret, their auth:secret
+000 "tunnel-three-3":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-three-3":   policy_label:unset;
+000 "tunnel-three-3":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-three-3":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-three-3":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-three-3":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-three-3":   conn_prio: 24,21; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-three-3":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-three-3":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.6
+000 "tunnel-three-3":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-three-3":   newest ISAKMP SA: #0; newest IPsec SA: #7020;
+000 "tunnel-three-3":   IKE algorithms: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-three-3":   ESP algorithms: AES_CBC_256-HMAC_SHA1_96-MODP1536
+000 "tunnel-three-3":   ESP algorithm newest: AES_CBC_256-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-three-4": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.6<1.2.3.6>===10.40.96.0/22; erouted; eroute owner: #7019
+000 "tunnel-three-4":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-three-4":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-three-4":   our auth:secret, their auth:secret
+000 "tunnel-three-4":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-three-4":   policy_label:unset;
+000 "tunnel-three-4":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-three-4":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-three-4":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-three-4":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-three-4":   conn_prio: 24,22; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-three-4":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-three-4":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.6
+000 "tunnel-three-4":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-three-4":   newest ISAKMP SA: #0; newest IPsec SA: #7019;
+000 "tunnel-three-4":   IKE algorithms: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-three-4":   ESP algorithms: AES_CBC_256-HMAC_SHA1_96-MODP1536
+000 "tunnel-three-4":   ESP algorithm newest: AES_CBC_256-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-three-5": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.6<1.2.3.6>===10.30.192.0/18; erouted; eroute owner: #7007
+000 "tunnel-three-5":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-three-5":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-three-5":   our auth:secret, their auth:secret
+000 "tunnel-three-5":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-three-5":   policy_label:unset;
+000 "tunnel-three-5":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-three-5":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-three-5":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-three-5":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-three-5":   conn_prio: 24,18; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-three-5":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-three-5":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.6
+000 "tunnel-three-5":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-three-5":   newest ISAKMP SA: #0; newest IPsec SA: #7007;
+000 "tunnel-three-5":   IKE algorithms: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-three-5":   ESP algorithms: AES_CBC_256-HMAC_SHA1_96-MODP1536
+000 "tunnel-three-5":   ESP algorithm newest: AES_CBC_256-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-three-radius-1": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.6<1.2.3.6>===10.20.255.13/32; erouted; eroute owner: #7014
+000 "tunnel-three-radius-1":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-three-radius-1":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-three-radius-1":   our auth:secret, their auth:secret
+000 "tunnel-three-radius-1":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-three-radius-1":   policy_label:unset;
+000 "tunnel-three-radius-1":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-three-radius-1":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-three-radius-1":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-three-radius-1":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-three-radius-1":   conn_prio: 24,32; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-three-radius-1":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-three-radius-1":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.6
+000 "tunnel-three-radius-1":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-three-radius-1":   newest ISAKMP SA: #0; newest IPsec SA: #7014;
+000 "tunnel-three-radius-1":   IKE algorithms: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-three-radius-1":   ESP algorithms: AES_CBC_256-HMAC_SHA1_96-MODP1536
+000 "tunnel-three-radius-1":   ESP algorithm newest: AES_CBC_256-HMAC_SHA1_96; pfsgroup=MODP1536
+000 "tunnel-three-radius-2": 192.168.211.0/24===10.99.88.54<10.99.88.54>...1.2.3.6<1.2.3.6>===10.20.255.14/32; erouted; eroute owner: #7016
+000 "tunnel-three-radius-2":     oriented; my_ip=10.99.88.54; their_ip=unset; my_updown=ipsec _updown;
+000 "tunnel-three-radius-2":   xauth us:none, xauth them:none,  my_username=[any]; their_username=[any]
+000 "tunnel-three-radius-2":   our auth:secret, their auth:secret
+000 "tunnel-three-radius-2":   modecfg info: us:none, them:none, modecfg policy:push, dns:unset, domains:unset, banner:unset, cat:unset;
+000 "tunnel-three-radius-2":   policy_label:unset;
+000 "tunnel-three-radius-2":   ike_life: 3600s; ipsec_life: 28800s; replay_window: 32; rekey_margin: 540s; rekey_fuzz: 100%; keyingtries: 0;
+000 "tunnel-three-radius-2":   retransmit-interval: 500ms; retransmit-timeout: 60s;
+000 "tunnel-three-radius-2":   initial-contact:no; cisco-unity:no; fake-strongswan:no; send-vendorid:no; send-no-esp-tfc:no;
+000 "tunnel-three-radius-2":   policy: PSK+ENCRYPT+TUNNEL+PFS+UP+IKEV1_ALLOW+SAREF_TRACK+IKE_FRAG_ALLOW+ESN_NO;
+000 "tunnel-three-radius-2":   conn_prio: 24,32; interface: vlan1000; metric: 0; mtu: unset; sa_prio:auto; sa_tfc:none;
+000 "tunnel-three-radius-2":   nflog-group: unset; mark: unset; vti-iface:unset; vti-routing:no; vti-shared:no; nic-offload:auto;
+000 "tunnel-three-radius-2":   our idtype: ID_IPV4_ADDR; our id=10.99.88.54; their idtype: ID_IPV4_ADDR; their id=1.2.3.6
+000 "tunnel-three-radius-2":   dpd: action:hold; delay:0; timeout:0; nat-t: encaps:auto; nat_keepalive:yes; ikev1_natt:both
+000 "tunnel-three-radius-2":   newest ISAKMP SA: #0; newest IPsec SA: #7016;
+000 "tunnel-three-radius-2":   IKE algorithms: AES_CBC_256-HMAC_SHA1-MODP1536
+000 "tunnel-three-radius-2":   ESP algorithms: AES_CBC_256-HMAC_SHA1_96-MODP1536
+000 "tunnel-three-radius-2":   ESP algorithm newest: AES_CBC_256-HMAC_SHA1_96; pfsgroup=MODP1536
+000  
+000 Total IPsec connections: loaded 14, active 14
+000  
+000 State Information: DDoS cookies not required, Accepting new IKE connections
+000 IKE SAs: total(4), half-open(0), open(0), authenticated(4), anonymous(0)
+000 IPsec SAs: total(14), authenticated(14), anonymous(0)
+000  
+000 #7012: "tunnel-one":500 STATE_MAIN_I4 (ISAKMP SA established); EVENT_SA_REPLACE in 647s; newest ISAKMP; lastdpd=-1s(seq in:0 out:0); idle;
+000 #7028: "tunnel-one":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE in 27775s; newest IPSEC; eroute owner; isakmp#7012; idle;
+000 #7028: "tunnel-one" esp.54c2e912@1.2.3.4 esp.ec0f4fc8@10.99.88.54 tun.0@1.2.3.4 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=1MB ESPout=930KB! ESPmax=4194303B 
+000 #7024: "tunnel-one-radius":500 STATE_QUICK_R2 (IPsec SA established); EVENT_SA_REPLACE in 594s; newest IPSEC; eroute owner; isakmp#7012; idle;
+000 #7024: "tunnel-one-radius" esp.28499cba@1.2.3.4 esp.b5f36f64@10.99.88.54 tun.0@1.2.3.4 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=177KB ESPout=21KB! ESPmax=4500B 
+000 #7013: "tunnel-two-1":500 STATE_MAIN_R3 (sent MR3, ISAKMP SA established); EVENT_SA_REPLACE in 1247s; newest ISAKMP; lastdpd=-1s(seq in:0 out:0); idle;
+000 #7021: "tunnel-two-1":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE in 27601s; newest IPSEC; eroute owner; isakmp#7013; idle;
+000 #7021: "tunnel-two-1" esp.eac539db@1.2.3.5 esp.53ddf482@10.99.88.54 tun.0@1.2.3.5 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=28MB ESPout=17MB! ESPmax=4194303B 
+000 #7023: "tunnel-two-2":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE in 27546s; newest IPSEC; eroute owner; isakmp#7013; idle;
+000 #7023: "tunnel-two-2" esp.b3c7ffa7@1.2.3.5 esp.47077522@10.99.88.54 tun.0@1.2.3.5 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=8MB ESPout=5MB! ESPmax=4194303B 
+000 #7026: "tunnel-two-ping":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE in 27406s; newest IPSEC; eroute owner; isakmp#7013; idle;
+000 #7026: "tunnel-two-ping" esp.d70a1965@1.2.3.5 esp.aaee4d66@10.99.88.54 tun.0@1.2.3.5 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=0B ESPout=0B! ESPmax=4194303B 
+000 #7022: "tunnel-two-radius-1":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE in 27289s; newest IPSEC; eroute owner; isakmp#7013; idle;
+000 #7022: "tunnel-two-radius-1" esp.bb155cf0@1.2.3.5 esp.d88ec3b6@10.99.88.54 tun.0@1.2.3.5 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=670KB ESPout=69KB! ESPmax=4194303B 
+000 #7025: "tunnel-two-radius-2":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE in 27309s; newest IPSEC; eroute owner; isakmp#7013; idle;
+000 #7025: "tunnel-two-radius-2" esp.960179@1.2.3.5 esp.86483f2a@10.99.88.54 tun.0@1.2.3.5 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=0B ESPout=0B! ESPmax=4194303B 
+000 #7006: "tunnel-three":500 STATE_MAIN_I4 (ISAKMP SA established); EVENT_SA_EXPIRE in 203s; lastdpd=-1s(seq in:0 out:0); idle;
+000 #7018: "tunnel-three":500 STATE_QUICK_R2 (IPsec SA established); EVENT_SA_REPLACE in 2047s; newest IPSEC; eroute owner; isakmp#7006; idle;
+000 #7018: "tunnel-three" esp.7017c602@1.2.3.6 esp.73f0fe35@10.99.88.54 tun.0@1.2.3.6 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=5KB ESPout=5KB! ESPmax=4500B 
+000 #7027: "tunnel-three":500 STATE_MAIN_I4 (ISAKMP SA established); EVENT_SA_REPLACE in 2604s; newest ISAKMP; lastdpd=-1s(seq in:0 out:0); idle;
+000 #7029: "tunnel-three-2":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE in 27968s; newest IPSEC; eroute owner; isakmp#7027; idle;
+000 #7029: "tunnel-three-2" esp.ebf6d5cf@1.2.3.6 esp.febaf251@10.99.88.54 tun.0@1.2.3.6 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=0B ESPout=0B! ESPmax=4194303B 
+000 #7020: "tunnel-three-3":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE in 27362s; newest IPSEC; eroute owner; isakmp#7006; idle;
+000 #7020: "tunnel-three-3" esp.1886f3eb@1.2.3.6 esp.a7013e91@10.99.88.54 tun.0@1.2.3.6 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=0B ESPout=0B! ESPmax=4194303B 
+000 #7019: "tunnel-three-4":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE in 27101s; newest IPSEC; eroute owner; isakmp#7006; idle;
+000 #7019: "tunnel-three-4" esp.fc4e2400@1.2.3.6 esp.4773e56b@10.99.88.54 tun.0@1.2.3.6 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=0B ESPout=0B! ESPmax=4194303B 
+000 #7007: "tunnel-three-5":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE in 24859s; newest IPSEC; eroute owner; isakmp#7006; idle;
+000 #7007: "tunnel-three-5" esp.ba1e5205@1.2.3.6 esp.51bffef3@10.99.88.54 tun.0@1.2.3.6 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=52MB ESPout=34MB! ESPmax=4194303B 
+000 #7014: "tunnel-three-radius-1":500 STATE_QUICK_R2 (IPsec SA established); EVENT_SA_REPLACE in 1346s; newest IPSEC; eroute owner; isakmp#7006; idle;
+000 #7014: "tunnel-three-radius-1" esp.85742b69@1.2.3.6 esp.6d5d8177@10.99.88.54 tun.0@1.2.3.6 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=2MB ESPout=245KB! ESPmax=4500B 
+000 #7016: "tunnel-three-radius-2":500 STATE_QUICK_I2 (sent QI2, IPsec SA established); EVENT_SA_REPLACE in 26693s; newest IPSEC; eroute owner; isakmp#7006; idle;
+000 #7016: "tunnel-three-radius-2" esp.a442b8bd@1.2.3.6 esp.1b7ac17b@10.99.88.54 tun.0@1.2.3.6 tun.0@10.99.88.54 ref=0 refhim=0 Traffic: ESPin=0B ESPout=0B! ESPmax=4194303B 
+000  
+000 Bare Shunt list:
+000  

@@ -1,9 +1,10 @@
 package exporter
 
 type metrics struct {
-	Stats  stats
-	Pools  []pool
-	IKESAs []*ikeSA
+	Stats      stats
+	Pools      []pool
+	IKESAs     []*ikeSA
+	ikeSAsById map[string]*ikeSA
 }
 
 type stats struct {

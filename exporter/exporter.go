@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"os/exec"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -74,12 +75,14 @@ var (
 // Exporter collects IPsec stats via a VICI protocol or an ipsec binary
 // and exports them using the prometheus metrics package.
 type Exporter struct {
-	scrape   func(e *Exporter) (m metrics, ok bool)
-	address  *url.URL
-	timeout  time.Duration
-	ipsecCmd []string
-	logger   log.Logger
-	mu       sync.Mutex
+	scrape     func(e *Exporter) (m metrics, ok bool)
+	address    *url.URL
+	timeout    time.Duration
+	ipsecCmd   []string
+	logger     log.Logger
+	mu         sync.Mutex
+	prevM      metrics
+	UidMapping *UidMapping
 
 	up                *prometheus.Desc
 	uptime            *prometheus.Desc
@@ -150,16 +153,27 @@ func (e *Exporter) scrapeIpsec() (m metrics, ok bool) {
 	switch {
 	case reSSMarker.Match(output):
 		level.Debug(e.logger).Log("msg", "Output type is detected as strongswan", "cmd", cmd)
-		return e.scrapeStrongswan(output)
+		m, ok := e.scrapeStrongswan(output)
+		e.prevM = m
+		return m, ok
 	case reLSMarker.Match(output):
 		level.Debug(e.logger).Log("msg", "Output type is detected as libreswan", "cmd", cmd)
-		return e.scrapeLibreswan(output)
+		m, ok := e.scrapeLibreswan(output)
+		e.prevM = m
+		return m, ok
 	}
 	level.Error(e.logger).Log("msg", "Failed to recognize output type", "cmd", cmd, "output", output)
 	return
 }
 
+func (e *Exporter) uidFor(name string, uid uint32) uint32 {
+	return e.UidMapping.SimplifyUid(uid)
+}
+
 func (e *Exporter) collect(m metrics, ch chan<- prometheus.Metric) {
+	e.UidMapping.StartScrape()
+	defer e.UidMapping.EndScrape()
+
 	if m.Stats.Uptime.Since != "" {
 		uptime, err := time.ParseInLocation("Jan _2 15:04:05 2006", m.Stats.Uptime.Since, tz)
 		if err != nil {
@@ -187,10 +201,19 @@ func (e *Exporter) collect(m metrics, ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(e.onlinePoolIPs, prometheus.GaugeValue, float64(pool.Online), pool.Name, pool.Address)
 		ch <- prometheus.MustNewConstMetric(e.offlinePoolIPs, prometheus.GaugeValue, float64(pool.Offline), pool.Name, pool.Address)
 	}
-	for _, ikeSA := range m.IKESAs {
+	// iterate through IKE SAs by name for deterministic reallocation of UIDs
+	ikeSAsorted := make([]*ikeSA, 0, len(m.IKESAs))
+	ikeSAsorted = append(ikeSAsorted, m.IKESAs...)
+	sort.Slice(ikeSAsorted, func(i, j int) bool {
+		if ikeSAsorted[i].Name == ikeSAsorted[j].Name {
+			return ikeSAsorted[i].UID < ikeSAsorted[j].UID
+		}
+		return ikeSAsorted[i].Name < ikeSAsorted[j].Name
+	})
+	for _, ikeSA := range ikeSAsorted {
 		labelValues := []string{
 			ikeSA.Name,
-			strconv.FormatUint(uint64(ikeSA.UID), 10),
+			strconv.FormatUint(uint64(e.uidFor(ikeSA.Name, ikeSA.UID)), 10),
 			strconv.FormatUint(uint64(ikeSA.Version), 10),
 			ikeSA.LocalHost,
 			ikeSA.LocalID,
@@ -209,14 +232,25 @@ func (e *Exporter) collect(m metrics, ch chan<- prometheus.Metric) {
 		if ikeSA.State == "ESTABLISHED" && ikeSA.Established != nil {
 			ch <- prometheus.MustNewConstMetric(e.establishedIKESA, prometheus.GaugeValue, float64(*ikeSA.Established), labelValues...)
 		}
+		// iterate through child SAs by name for deterministic reallocation of UIDs
+		childSAsorted := make([]*childSA, 0, len(ikeSA.ChildSAs))
 		for _, childSA := range ikeSA.ChildSAs {
+			childSAsorted = append(childSAsorted, childSA)
+		}
+		sort.Slice(childSAsorted, func(i, j int) bool {
+			if childSAsorted[i].Name == childSAsorted[j].Name {
+				return childSAsorted[i].UID < childSAsorted[j].UID
+			}
+			return childSAsorted[i].Name < childSAsorted[j].Name
+		})
+		for _, childSA := range childSAsorted {
 			reqID := ""
 			if childSA.ReqID != nil {
 				reqID = strconv.FormatUint(uint64(*childSA.ReqID), 10)
 			}
 			childLabelValues := append(labelValues, []string{
 				childSA.Name,
-				strconv.FormatUint(uint64(childSA.UID), 10),
+				strconv.FormatUint(uint64(e.uidFor(childSA.Name, childSA.UID)), 10),
 				childSA.Mode,
 				childSA.Protocol,
 				reqID,
@@ -249,10 +283,11 @@ func (e *Exporter) collect(m metrics, ch chan<- prometheus.Metric) {
 // New returns an initialized exporter.
 func New(collectorType int, address *url.URL, timeout time.Duration, ipsecCmd []string, logger log.Logger) (*Exporter, error) {
 	e := &Exporter{
-		address:  address,
-		timeout:  timeout,
-		ipsecCmd: ipsecCmd,
-		logger:   logger,
+		address:    address,
+		timeout:    timeout,
+		ipsecCmd:   ipsecCmd,
+		logger:     logger,
+		UidMapping: NewUidMapping(),
 
 		up: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, "", "up"),
