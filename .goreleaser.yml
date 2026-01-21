@@ -1,3 +1,4 @@
+version: 2
 builds:
   - main: ./cmd/ipsec_exporter
     ldflags: |
@@ -51,7 +52,7 @@ builds:
 archives:
   - format_overrides:
       - goos: windows
-        format: zip
+        formats: zip
 
 release:
   prerelease: auto
