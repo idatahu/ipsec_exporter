@@ -282,8 +282,10 @@ func (e *Exporter) scrapeLibreswan(b []byte) (m metrics, ok bool) {
 			serialNo := matches["serialno"]
 			inBytes, _ := strconv.ParseUint(matches["inbytes"], 10, 64)
 			outBytes, _ := strconv.ParseUint(matches["outbytes"], 10, 64)
-			childSAs[serialNo].InBytes = inBytes
-			childSAs[serialNo].OutBytes = outBytes
+			if childSA, found := childSAs[serialNo]; found {
+				childSA.InBytes = inBytes
+				childSA.OutBytes = outBytes
+			}
 		}
 	}
 	m.ikeSAsById = ikeSAsById
