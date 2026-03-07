@@ -197,22 +197,23 @@ func (e *Exporter) scrapeLibreswan(b []byte) (m metrics, ok bool) {
 				if strings.HasPrefix(lines[i], matches["prefix"]) {
 					s := strings.TrimPrefix(lines[i], matches["prefix"])
 					if child {
-						if ikeSA, ok := ikeSAsById[parentIds[serialno]]; ok {
+						parentId, _ := parentIds[serialno]
+						if ikeSA, ok := ikeSAsById[parentId]; ok {
 							ikeSA.ChildSAs[makeChildSAName(childSAs[serialno])] = childSAs[serialno]
-						} else if ikeSA, ok := e.prevM.ikeSAsById[parentIds[serialno]]; ok {
+						} else if ikeSA, ok := e.prevM.ikeSAsById[parentId]; ok {
 							newIkeSA := copyIkeSA(ikeSA)
-							ikeSAsById[parentIds[serialno]] = newIkeSA
+							ikeSAsById[parentId] = newIkeSA
 							newIkeSA.ChildSAs[makeChildSAName(childSAs[serialno])] = childSAs[serialno]
 						} else if ikeSA, ok := ikeSAs[name]; ok {
 							newIkeSA := copyIkeSA(ikeSA)
-							newIkeSAUid, _ := strconv.ParseUint(parentIds[serialno], 10, 32)
+							newIkeSAUid, _ := strconv.ParseUint(parentId, 10, 32)
 							newIkeSA.UID = uint32(newIkeSAUid)
-							ikeSAsById[parentIds[serialno]] = newIkeSA
+							ikeSAsById[parentId] = newIkeSA
 							newIkeSA.ChildSAs[makeChildSAName(childSAs[serialno])] = childSAs[serialno]
 						}
 						if m := lsStateNameRE.FindStringSubmatch(s); m != nil {
 							childSAs[serialno].State = m[1]
-							if ikeSA, ok := ikeSAsById[parentIds[serialno]]; ok {
+							if ikeSA, ok := ikeSAsById[parentId]; ok {
 								ikeSA.Version = ikeSAVersion(m[1])
 							}
 						}
@@ -247,7 +248,7 @@ func (e *Exporter) scrapeLibreswan(b []byte) (m metrics, ok bool) {
 							}
 						}
 						if m := lsUsernameRE.FindStringSubmatch(s); m != nil {
-							if ikeSA, ok := ikeSAsById[parentIds[serialno]]; ok {
+							if ikeSA, ok := ikeSAsById[parentId]; ok {
 								ikeSA.RemoteXAuthID = m[1]
 							}
 						}
