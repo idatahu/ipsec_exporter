@@ -96,7 +96,7 @@ var (
 
 var (
 	lsStateRE     = regexp.MustCompile(lsState)
-	lsParentIDRE  = regexp.MustCompile(`; (isakmp|ISAKMP SA )#(?P<parentid>\d+)`)
+	lsParentIDRE  = regexp.MustCompile(`; (isakmp|ISAKMP SA |IKE SA )#(?P<parentid>\d+)`)
 	lsStateNameRE = regexp.MustCompile(`(STATE_\w+)`)
 	lsSPIRE       = regexp.MustCompile(`([a-z]+)[?:.][a-f0-9]+@` + lsIPAddrPart)
 	lsTrafficRE   = regexp.MustCompile(`(AHin|AHout|ESPin|ESPout|IPCOMPin|IPCOMPout)=(\d+)(B|KB|MB)`)
@@ -255,6 +255,9 @@ func (e *Exporter) scrapeLibreswan(b []byte) (m metrics, ok bool) {
 						if ikeSABase, ok := ikeSAs[name]; ok {
 							newIkeSA := copyIkeSA(ikeSABase)
 							newIkeSA.UID = uint32(n)
+							if existingIkeSA, existing := ikeSAsById[serialno]; existing {
+								newIkeSA.ChildSAs = existingIkeSA.ChildSAs
+							}
 							ikeSAsById[serialno] = newIkeSA
 						}
 						if m := lsStateNameRE.FindStringSubmatch(s); m != nil {
