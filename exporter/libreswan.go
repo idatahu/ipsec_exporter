@@ -106,7 +106,7 @@ var (
 var lsStatsRE = regexp.MustCompile(`IKE SAs: total\((\d+)\), half-open\((\d+)\)`)
 
 var lsTrafficStatusRE = regexp.MustCompile(
-	lsPrefix + `#(?P<serialno>\d+): ` + lsConnPart + `, type=[^,]+, add_time=[0-9]+, inBytes=(?P<inbytes>[0-9]+), outBytes=(?P<outbytes>[0-9]+), id=.*`)
+	lsPrefix + `#(?P<serialno>\d+): ` + lsConnPart + `, type=[^,]+, add_time=[0-9]+, inBytes=(?P<inbytes>[0-9]+), outBytes=(?P<outbytes>[0-9]+)(, maxBytes=(?P<maxbytes>[^,]+))?, id=.*`)
 
 func copyIkeSA(other *ikeSA) *ikeSA {
 	return &ikeSA{
